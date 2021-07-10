@@ -58,6 +58,8 @@ public abstract class Utils {
 
         s = s == null ? "" : s;
 
+        file.getParentFile().mkdirs();
+
         try (FileWriter f = new FileWriter(file)) {
 
             f.write(s);

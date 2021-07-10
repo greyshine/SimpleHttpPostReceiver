@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +24,8 @@ public class MainController {
     private Main main;
 
     @GetMapping(value = "/test", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ModelAndView test() {
-
-        final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("test.html");
-        return modelAndView;
+    public String test() {
+        return "hello-world";
     }
 
     @PostMapping(value = "/send")

@@ -43,16 +43,6 @@ public class Main implements ApplicationRunner {
         return defaultValue;
     }
 
-    private static String getArg2(ApplicationArguments args, String name, String defaultValue) {
-
-        try {
-            final String v = args.getOptionValues(name).get(0);
-            return v == null || v.trim().isBlank() ? defaultValue : v;
-        } catch (Exception e) {
-            return defaultValue;
-        }
-    }
-
     @Override
     public void run(ApplicationArguments args) {
 

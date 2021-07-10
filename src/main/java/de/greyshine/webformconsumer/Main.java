@@ -13,6 +13,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * https://spring.io/guides/gs/rest-service-cors/
@@ -95,6 +96,8 @@ public class Main implements ApplicationRunner {
 
         final File file = new File(storeDir, ldt.format(SDF_FILENAME) + "." + id + ".txt");
 
+        final AtomicBoolean foundValues = new AtomicBoolean(false);
+
         final StringBuilder sb = new StringBuilder();
         sb.append("ID: ").append(id).append('\n');
         sb.append(SDF_READABLE.format(ldt)).append('\n');
@@ -108,15 +111,24 @@ public class Main implements ApplicationRunner {
                     if (vs == null || vs.length == 0) {
                         return;
                     } else if (vs.length == 1) {
+
                         sb.append(vs[0]);
+
+                        foundValues.set(foundValues.get() || (vs[0] != null && !vs[0].trim().isEmpty()));
+
                     } else {
 
                         for (int i = 0, l = vs.length; i < l; i++) {
                             sb.append('[').append(i).append("] ").append(vs[i]).append('\n');
+                            foundValues.set(foundValues.get() || (vs[i] != null && !vs[i].trim().isEmpty()));
                         }
                     }
                 }
         );
+
+        if (!foundValues.get()) {
+            return -1;
+        }
 
         return Utils.writeFile(file, sb.toString());
     }

@@ -1,18 +1,5 @@
-const server = 'http://localhost:8080';
-const postUrl = server + '/send';
-
-const axiosInstance = axios.create();
-
-// https://github.com/axios/axios/issues/853
-//axiosInstance.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
 const f = function () {
     return {
-
-        ct(event) {
-            console.log('clicked', event);
-            event.preventDefault();
-        },
 
         sendForm(event) {
 
@@ -38,7 +25,12 @@ const f = function () {
                 }
             };
 
-            axios.post(postUrl, formData, config)
+
+            const url = document.getElementById('serverAddress').value + '/send';
+
+            alert(url);
+
+            axios.post(url, formData, config)
                 .then(
                     response => {
                         console.log('OK', response);

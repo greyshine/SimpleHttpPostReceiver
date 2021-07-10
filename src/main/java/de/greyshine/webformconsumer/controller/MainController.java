@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -35,15 +34,6 @@ public class MainController {
 
     @PostMapping(value = "/send")
     public ResponseEntity<String> post(HttpServletRequest request, HttpServletResponse response) {
-
-        final Enumeration<String> pEnum = request.getParameterNames();
-        while (pEnum.hasMoreElements()) {
-
-            final String key = pEnum.nextElement();
-            // !Watch: actually its an String[]!
-            final String value = request.getParameter(key);
-            log.info("param {}={}", key, value);
-        }
 
         final String ip = Utils.getClientIpAddr(request);
         final long num = requestCount.addAndGet(1);

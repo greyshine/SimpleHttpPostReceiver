@@ -28,8 +28,6 @@ const f = function () {
 
             const url = document.getElementById('serverAddress').value + '/send';
 
-            alert(url);
-
             axios.post(url, formData, config)
                 .then(
                     response => {

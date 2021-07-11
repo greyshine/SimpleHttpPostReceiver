@@ -1,6 +1,17 @@
 const f = function () {
     return {
 
+        setMsg(msg, errOrOk) {
+            msg = msg == null || typeof msg == 'undefined' ? '' : '' + msg;
+            let color = '';
+            if (typeof errOrOk == 'boolean') {
+                console.log('eoo', errOrOk, typeof errOrOk);
+                color = errOrOk ? 'red' : 'green';
+            }
+            document.getElementById('message').style.color = color;
+            document.getElementById('message').innerText = msg;
+        },
+
         sendForm(event) {
 
             console.log('sendForm()', event);
@@ -25,25 +36,25 @@ const f = function () {
                 }
             };
 
-
             const url = document.getElementById('serverAddress').value + '/send';
 
             axios.post(url, formData, config)
                 .then(
                     response => {
                         console.log('OK', response);
+                        f.setMsg('OK - request was successfully send.', false);
                     },
                     failure => {
                         console.log('fail', failure);
+                        f.setMsg('FAIL - ' + failure, true);
                     }
                 ).catch(exception => {
-                console.log('exception', exception);
-            })
-                .finally(() => {
-                    console.log('ajax done');
-                });
-
-            return false;
+                    console.log('exception', exception);
+                    f.setMsg('Exception - ' + exception, true);
+                }
+            ).finally(() => {
+                //console.log('ajax done');
+            });
         }
 
     };

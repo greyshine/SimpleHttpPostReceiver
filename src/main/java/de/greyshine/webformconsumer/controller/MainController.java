@@ -1,6 +1,6 @@
 package de.greyshine.webformconsumer.controller;
 
-import de.greyshine.webformconsumer.Main;
+import de.greyshine.webformconsumer.Service;
 import de.greyshine.webformconsumer.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class MainController {
     public static final AtomicLong requestCount = new AtomicLong(0);
 
     @Autowired
-    private Main main;
+    private Service service;
 
     @GetMapping(value = "/test", produces = MediaType.TEXT_PLAIN_VALUE)
     public String test() {
@@ -33,7 +33,7 @@ public class MainController {
 
         final String ip = Utils.getClientIpAddr(request);
         final long num = requestCount.addAndGet(1);
-        final long bytesWritten = main.handle(num, ip, request.getParameterMap());
+        final long bytesWritten = service.handle(num, ip, request.getParameterMap());
 
         log.info("info handled from {} with {} bytes", ip, bytesWritten);
 

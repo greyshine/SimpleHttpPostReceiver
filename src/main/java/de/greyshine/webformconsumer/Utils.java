@@ -1,10 +1,14 @@
 package de.greyshine.webformconsumer;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.ApplicationArguments;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Slf4j
 public abstract class Utils {
 
     private Utils() {
@@ -72,5 +76,15 @@ public abstract class Utils {
         return file.length();
     }
 
+    public static String getArg(ApplicationArguments args, String name, String defaultValue) {
 
+        for (String a : args.getNonOptionArgs()) {
+            if (a != null && a.equals(name) || a.startsWith(name + "=")) {
+                final int idxEq = a.indexOf('=');
+                return idxEq < 0 ? a : a.substring(idxEq + 1).trim();
+            }
+        }
+        log.debug("default {}={}", name, defaultValue);
+        return defaultValue;
+    }
 }

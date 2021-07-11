@@ -3,17 +3,11 @@
 
 <head>
     <title>TestFormPage</title>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </head>
 
 <body>
-
-<ul id="messages">
-
-</ul>
-
 <h1>Test Form page</h1>
 
 <div>
@@ -26,7 +20,10 @@
 
 <hr/>
 
-<form id="form" onsubmit="f.sendForm(event); return false;">
+<!--<button onclick="f.setMsg('FUKKEL')">TEST</button>-->
+<div id="message" ondblclick="f.setMsg()"></div>
+
+<form id="form" onsubmit="f.sendForm(event);">
     <div>
         <input name="email" placeholder="email" type="email">
     </div>
@@ -37,5 +34,4 @@
 </form>
 
 </body>
-
 </html>

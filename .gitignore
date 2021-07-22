@@ -3,3 +3,6 @@
 /target
 
 /data
+
+application.properties
+keystore.p12
